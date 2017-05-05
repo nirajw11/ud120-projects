@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
@@ -24,16 +25,95 @@ plt.scatter(grade_slow, bumpy_slow, color = "r", label="slow")
 plt.legend()
 plt.xlabel("bumpiness")
 plt.ylabel("grade")
-plt.show()
+##plt.show()
 ################################################################################
 
 
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
 
+import sys
+from time import time
+from sklearn.metrics import accuracy_score
 
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
 
+clf = GaussianNB()
+t0 = time()
+clf.fit(features_train,labels_train)
+print "training time:", round(time()-t0, 3), "s"
 
+t1 = time()
+pred=clf.predict(features_test)
+print "testing time:", round(time()-t1, 3), "s"
+
+acc = accuracy_score(pred, labels_test)
+print "accuracy NB : ",acc
+
+clf = SVC(C=100000)
+t0 = time()
+clf.fit(features_train,labels_train)
+print "training time:", round(time()-t0, 3), "s"
+
+t1 = time()
+pred=clf.predict(features_test)
+print "testing time:", round(time()-t1, 3), "s"
+
+acc = accuracy_score(pred, labels_test)
+print "accuracy SVM : ",acc
+
+clf = DecisionTreeClassifier()
+t0 = time()
+clf.fit(features_train,labels_train)
+print "training time:", round(time()-t0, 3), "s"
+
+t1 = time()
+pred=clf.predict(features_test)
+print "testing time:", round(time()-t1, 3), "s"
+
+acc = accuracy_score(pred, labels_test)
+print "accuracy DTree : ",acc
+
+clf = KNeighborsClassifier(n_neighbors=4)
+t0 = time()
+clf.fit(features_train,labels_train)
+print "training time:", round(time()-t0, 3), "s"
+
+t1 = time()
+pred=clf.predict(features_test)
+print "testing time:", round(time()-t1, 3), "s"
+
+acc = accuracy_score(pred, labels_test)
+print "accuracy KNN : ",acc
+
+clf = AdaBoostClassifier()
+t0 = time()
+clf.fit(features_train,labels_train)
+print "training time:", round(time()-t0, 3), "s"
+
+t1 = time()
+pred=clf.predict(features_test)
+print "testing time:", round(time()-t1, 3), "s"
+
+acc = accuracy_score(pred, labels_test)
+print "accuracy ADBoost : ",acc
+
+clf = RandomForestClassifier(max_depth=5)
+t0 = time()
+clf.fit(features_train,labels_train)
+print "training time:", round(time()-t0, 3), "s"
+
+t1 = time()
+pred=clf.predict(features_test)
+print "testing time:", round(time()-t1, 3), "s"
+
+acc = accuracy_score(pred, labels_test)
+print "accuracy RForest : ",acc
 
 
 
